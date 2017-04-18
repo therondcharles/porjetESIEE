@@ -10,28 +10,48 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>Connexion</title>
+    <title>Inscription</title>
   </head>
 
   <body>
-    <h1>Connexion</h1>
-	
+   
     
+   
+	
 	
 	<div class="row"><div class="text-center container">
 	<div class="col-md-6 col-md-offset-3">
-	<form method="post" action="connectUser">
+	<form method="post" action="createUser">
   <div class="form-group">
-    <label >Email address</label>
-    <input type="text" class="form-control" name="mail" placeholder="Email">
+    <label >Type:</label>
+    <select class="form-control" name="type">
+			<option label="Client">Client</option>
+			<option label="MOA">MOA</option> 
+			<option label="Developpeur">Developpeur</option> 
+		</select>
+  </div>
+   <div class="form-group">
+    <label >Nom</label>
+    <input type="text" class="form-control" name="nom" placeholder="nom">
+    <label >Prenom</label>
+    <input type="text" class="form-control" name="prenom" placeholder="prenom">
+  </div>
+   <div class="form-group">
+    <label >Mail</label>
+    <input type="text" class="form-control" name="mail" placeholder="mail">
+    
   </div>
   <div class="form-group">
     <label >Password</label>
     <input type="password" class="form-control" name="mdp" placeholder="Password">
   </div>
+  <div class="form-group">
+    <label >Confirmer Password</label>
+    <input type="password" class="form-control" name="confmdp" placeholder="Password">
+  </div>
  
-  <button type="submit" class="btn btn-default btn-primary">Se connecter</button>
-  <a href="inscription.html">S'inscrire</a>
+  <button type="submit" class="btn btn-default btn-primary">S'inscrire</button>
+  
   
 </form>
 </div></div></div>
