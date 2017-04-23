@@ -7,11 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.api.services.datastore.v1.model.Key;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
@@ -45,15 +43,11 @@ public class connectUser extends HttpServlet {
 		String nom="";
 		String type="";
 		int i =0;
-
+		
 		for(Entity u:pq.asIterable()){
 			i++;
-
-			String macle=""+ u.getKey().getId();
-			
-			nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +macle;
+			nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +  u.getKey();
 			type=""+u.getProperty("type");
-			System.out.println("key: " + u.getKey().getId() );
 			//tabuser+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("prenom") +"</td><td>"+u.getProperty("mail") +"</td></tr>";
 =======
 		String nom = "";
