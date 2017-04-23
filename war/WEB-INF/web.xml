@@ -33,6 +33,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/connectUser</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>AddRequest</servlet-name>
+		<servlet-class>com.SI.AddRequest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddRequest</servlet-name>
+		<url-pattern>/AddRequest</url-pattern>
+	</servlet-mapping>
+	
+	
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
