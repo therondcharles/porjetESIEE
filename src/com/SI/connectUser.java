@@ -56,7 +56,7 @@ public class connectUser extends HttpServlet {
 
 		}
 		if (i == 1) {
-			link = "/espace.jsp";
+			link = "/affichagerequette.jsp";
 			
 		}
 		
@@ -88,8 +88,7 @@ public class connectUser extends HttpServlet {
 			
 		}
 		
-		
-		
+				
 		//Recuperation projets utilisateur
 		Query q2 = new Query("request");
 		q2.addFilter("iduser", FilterOperator.EQUAL, id);
@@ -105,7 +104,8 @@ int j =0,k=0;
 			proj+="<div class='caption'>";
 			proj+=" <h3>"+u.getProperty("nom")+"</h3>";
 			proj+=" <p>"+u.getProperty("description")+"</p>";
-			proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
+			//proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
+			proj+="<p class='text-center'><a href='/ConsultRequest' class='btn btn-primary' role='button'>Voir</a> <a href='ConsultRequest' class='btn btn-default' role='button'>Terminer</a></p>";	
 			proj+="</div> </div> </div> ";
 			if(j==3){
 				j=0;
@@ -150,22 +150,52 @@ int j =0,k=0;
 			
 		}
 		
-		
-		
 
 		// tabuser+="</tbody></table>";
-		req.setAttribute("nom", nom);
 		req.setAttribute("proj", proj);
-		req.setAttribute("block1", b1);
-		req.setAttribute("block2", b2);
-		req.setAttribute("block3", b3);
-		req.setAttribute("text1", text1);
-		req.setAttribute("text2", text2);
-		req.setAttribute("iduser", id);
-		req.setAttribute("tabletache", tablep);
 		// req.setAttribute(" ",tabuser );
 		getServletContext().getRequestDispatcher(link).forward(req, resp);
 
-	}
+		
+		
+		
+		//Recuperation informations de la requete 
 
+		Query q4 = new Query("request");
+		q4.addFilter("id", FilterOperator.EQUAL, id);
+		PreparedQuery pqq2 = dataStore.prepare(q4);
+	
+		for(Entity u:pqq2.asIterable()){
+			id= ""+u.getKey().getId();
+				
+				int e =0,r=0;
+				String proj2="<div class='row'>";
+				for(Entity requete :pqq.asIterable()){
+					e++;
+					proj+=" <div class='col-sm-6 col-md-4'><div class='thumbnail'>";
+					proj+=" <h3>"+u.getProperty("nom")+"</h3>";
+					proj+=" <p>"+u.getProperty("description")+"</p>";
+					proj+="</div> </div> </div> ";
+					if(e==3){
+						e=0;
+						r++;
+						if(r>2){
+							proj+="</div><div id='knowmore'class='row knowmore  hidden '>";
+						}else{	
+								proj+="</div><div class='row'>";						
+						}
+					}
+				}
+				String link2 = "/index.html";
+			
+			/*	req.setAttribute("text1", text1);
+				req.setAttribute("text2", text2);
+				req.setAttribute("iduser", id);
+				req.setAttribute("tabletache", tablep);
+			*/
+				req.setAttribute("proj2", proj2);
+				getServletContext().getRequestDispatcher(link2).forward(req, resp);
+				
+		}
+	}
 }

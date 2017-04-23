@@ -21,6 +21,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
 
 <div class="<%=request.getAttribute("block1")%>">
 
+
 <h2>Ajout d' <%=request.getAttribute("text1")%></h2>
 <div class="row"><div class="text-center container">
 	<div class="col-md-6 col-md-offset-3">
