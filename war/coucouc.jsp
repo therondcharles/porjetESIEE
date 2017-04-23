@@ -9,10 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-coucoucocucouc 
-
 <%=request.getAttribute("tabuser")%>
-
-
 </body>
 </html>

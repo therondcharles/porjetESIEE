@@ -46,6 +46,7 @@ public class AddRequest extends HttpServlet{
 		request.setProperty("delai", delai);
 		request.setProperty("cout", cout);
 		request.setProperty("etat", etat);
+		request.setProperty("history", null);
 		dataStore.put(request);
 		tx.commit();
 		
