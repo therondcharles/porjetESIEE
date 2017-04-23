@@ -45,20 +45,25 @@ public class connectUser extends HttpServlet {
 		PreparedQuery pq= dataStore.prepare(q);
 		//String tabuser = "<table><thead></thead><tbody>";
 		String tabuser = "/index.html";
-		
+		String nom="";
+		String type="";
 		int i =0;
 		
 		for(Entity u:pq.asIterable()){
 			i++;
-			
+			nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +  u.getKey();
+			type=""+u.getProperty("type");
 			//tabuser+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("prenom") +"</td><td>"+u.getProperty("mail") +"</td></tr>";
 		}
 		if(i==1){
-			tabuser = "/coucouc.jsp";
+			tabuser = "/espace.jsp";
+			
 		}
 		
 		//tabuser+="</tbody></table>";
 		req.setAttribute("tabuser",tabuser );
+		req.setAttribute("nom",nom );
+		//req.setAttribute(" ",tabuser );
 		getServletContext().getRequestDispatcher(tabuser).forward(req, resp);
 		
 	
