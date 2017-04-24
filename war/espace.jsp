@@ -35,7 +35,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
     <label >Description</label>
     <input type="text" class="form-control" name="description" placeholder="description">
     <label class="<%=request.getAttribute("block3")%>" >Numero de projet</label>
-    <input type="text" class="form-control <%=request.getAttribute("block3")%>" name="history" placeholder="description">
+    <input type="text" class="form-control <%=request.getAttribute("block3")%>" name="history" placeholder="numeroProjet">
   </div>
   
 

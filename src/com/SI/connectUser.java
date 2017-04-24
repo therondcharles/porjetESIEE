@@ -21,7 +21,7 @@ public class connectUser extends HttpServlet {
 		String mail = req.getParameter("mail");
 		String mdp = req.getParameter("mdp");
 
-		System.out.println("Dans GoogleEsieeServlet, champs reçus: " + mail + mdp);
+		System.out.println("Dans ConnectUserServlet, champs reçus: " + mail + mdp);
 
 		
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
@@ -56,8 +56,9 @@ public class connectUser extends HttpServlet {
 
 		}
 		if (i == 1) {
-			link = "/affichagerequette.jsp";
-			
+			System.out.println("link");
+		//	link = "/affichagerequette.jsp";
+			link ="/espace.jsp";
 		}
 		
 		String b1="";
@@ -152,13 +153,14 @@ int j =0,k=0;
 		
 
 		// tabuser+="</tbody></table>";
+	
+		/*LIEN LIEN LIEN LIEN LIEN LIEN LIEN LIEN*/
+		
 		req.setAttribute("proj", proj);
 		// req.setAttribute(" ",tabuser );
 		getServletContext().getRequestDispatcher(link).forward(req, resp);
-
 		
-		
-		
+	
 		//Recuperation informations de la requete 
 
 		Query q4 = new Query("request");
@@ -169,20 +171,21 @@ int j =0,k=0;
 			id= ""+u.getKey().getId();
 				
 				int e =0,r=0;
-				String proj2="<div class='row'>";
+				String reqt="<div class='row'>";
 				for(Entity requete :pqq.asIterable()){
 					e++;
-					proj+=" <div class='col-sm-6 col-md-4'><div class='thumbnail'>";
-					proj+=" <h3>"+u.getProperty("nom")+"</h3>";
-					proj+=" <p>"+u.getProperty("description")+"</p>";
-					proj+="</div> </div> </div> ";
+					reqt+=" <div class='col-sm-6 col-md-4'><div class='thumbnail'>";
+					reqt+=" <h3>"+u.getProperty("nom")+"</h3>";
+					reqt+=" <p>"+u.getProperty("description")+"</p>";
+				// A completer 
+					reqt+="</div> </div> </div> ";
 					if(e==3){
 						e=0;
 						r++;
 						if(r>2){
-							proj+="</div><div id='knowmore'class='row knowmore  hidden '>";
+							reqt+="</div><div id='knowmore'class='row knowmore  hidden '>";
 						}else{	
-								proj+="</div><div class='row'>";						
+								reqt+="</div><div class='row'>";						
 						}
 					}
 				}
@@ -193,9 +196,8 @@ int j =0,k=0;
 				req.setAttribute("iduser", id);
 				req.setAttribute("tabletache", tablep);
 			*/
-				req.setAttribute("proj2", proj2);
-				getServletContext().getRequestDispatcher(link2).forward(req, resp);
-				
+				req.setAttribute("requette", reqt);
+				getServletContext().getRequestDispatcher(link2).forward(req, resp);		
 		}
 	}
 }
