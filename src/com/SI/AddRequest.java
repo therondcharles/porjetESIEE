@@ -28,13 +28,12 @@ public class AddRequest extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		String nom = req.getParameter("nom");
-		String iduser = req.getParameter("iduser");
+		// Demandeur 
+		// Réalisateur 
 		String description = req.getParameter("description");
 		String delai = req.getParameter("delai");
 		String cout = req.getParameter("cout");
 		String etat = req.getParameter("etat");
-		String typep = req.getParameter("type");
-		String history =req.getParameter("history");;
 		
 		System.out.println("Dans AddRequest Servlet, champs reçus: " + nom );	
 		
@@ -43,13 +42,11 @@ public class AddRequest extends HttpServlet{
 		Transaction  tx = dataStore.beginTransaction();
 		Entity request = new Entity("request");
 		request.setProperty("nom", nom);
-		request.setProperty("type", typep);
-		request.setProperty("iduser", iduser);
 		request.setProperty("description", description);
 		request.setProperty("delai", delai);
 		request.setProperty("cout", cout);
 		request.setProperty("etat", etat);
-		request.setProperty("history", history);
+		request.setProperty("history", null);
 		dataStore.put(request);
 		tx.commit();
 		

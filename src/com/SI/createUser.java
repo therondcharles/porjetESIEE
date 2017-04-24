@@ -53,8 +53,19 @@ public class createUser extends HttpServlet {
 		// "Personne").param("filterProperty", "age").param("filterValue",
 		// "15"));
 
-		
-		getServletContext().getRequestDispatcher("/").forward(req, resp);
+		Query q = new Query("user");
+		q.addFilter("type", FilterOperator.EQUAL, type);
+		PreparedQuery pq = dataStore.prepare(q);
+		String tabuser = "<table><thead></thead><tbody>";
+
+		for (Entity u : pq.asIterable()) {
+			tabuser += "<tr><td>" + u.getProperty("nom") + "</td><td>" + u.getProperty("prenom") + "</td><td>"
+					+ u.getProperty("mail") + "</td></tr>";
+		}
+
+		tabuser += "</tbody></table>";
+		req.setAttribute("tabuser", tabuser);
+		getServletContext().getRequestDispatcher("/coucouc.jsp").forward(req, resp);
 
 	}
 
