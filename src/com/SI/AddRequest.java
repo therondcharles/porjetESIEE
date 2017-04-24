@@ -28,6 +28,7 @@ public class AddRequest extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		String nom = req.getParameter("nom");
+		String mail = req.getParameter("mail");
 		String iduser = req.getParameter("iduser");
 		String description = req.getParameter("description");
 		String delai = req.getParameter("delai");
@@ -36,7 +37,7 @@ public class AddRequest extends HttpServlet{
 		String typep = req.getParameter("type");
 		String history =req.getParameter("history");
 		
-		System.out.println("Dans AddRequest Servlet, champs reçus: " + nom );	
+	
 		
 		//if(mdp.equals(confmdp)){
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
@@ -49,7 +50,6 @@ public class AddRequest extends HttpServlet{
 		request.setProperty("delai", delai);
 		request.setProperty("cout", cout);
 		request.setProperty("etat", etat);
-		request.setProperty("history", null);
 		request.setProperty("history", history);
 		dataStore.put(request);
 		tx.commit();
@@ -57,18 +57,13 @@ public class AddRequest extends HttpServlet{
 		//Queue queue = QueueFactory.getDefaultQueue();
 		//queue.add(TaskOptions.Builder.withUrl("/tacheDeFond").method(Method.POST).param("kind", "Personne").param("filterProperty", "age").param("filterValue", "15"));
 		
-		Query q = new Query("request");
-		//q.addFilter("type", FilterOperator.EQUAL, type);
-		PreparedQuery pq= dataStore.prepare(q);
-		String tabRequest = "<table><thead></thead><tbody>";
 		
-		for(Entity u:pq.asIterable()){
-			tabRequest+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("description") +"</td><td>"+u.getProperty("delai") +"</td></tr>";
-		}
 		
-		tabRequest+="</tbody></table>";
-		req.setAttribute("tabuser",tabRequest);
-		getServletContext().getRequestDispatcher("/coucouc.jsp").forward(req, resp);
+			
+	String link ="/connectUser";
+	
+
+		getServletContext().getRequestDispatcher(link).forward(req, resp);
 	
 	}
 

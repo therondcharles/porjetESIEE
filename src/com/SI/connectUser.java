@@ -19,9 +19,10 @@ public class connectUser extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
 		String mail = req.getParameter("mail");
+		String from = req.getParameter("from");
 		String mdp = req.getParameter("mdp");
 
-		System.out.println("Dans ConnectUserServlet, champs reçus: " + mail + mdp);
+		System.out.println("Dans ConnectUserServlet, champs reçus: " + mail +  mdp +from);
 
 		// if(mdp.equals(confmdp)){
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
@@ -37,13 +38,17 @@ public class connectUser extends HttpServlet {
 		
 				Query q = new Query("user");
 				q.addFilter("mail", FilterOperator.EQUAL, mail);
+				
+				if(from==null){
 				q.addFilter("mdp", FilterOperator.EQUAL, mdp);
+				}
 				PreparedQuery pq = dataStore.prepare(q);
 				// String tabuser = "<table><thead></thead><tbody>";
 				
 				String link = "/index.html";
 
 				String nom="";
+				
 				String type="";
 				String id="";
 				int i =0;
@@ -53,14 +58,16 @@ public class connectUser extends HttpServlet {
 					
 					nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +  u.getKey().getId();
 					type=u.getProperty("type").toString();
+					
 					id= ""+u.getKey().getId();
 					//tabuser+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("prenom") +"</td><td>"+u.getProperty("mail") +"</td></tr>";
 		
 				}
 		if (i == 1) {
 
-			System.out.println("link");
+			
 			link ="/espace.jsp";
+			System.out.println("link");
 		}
 		String b1="";
 		String b2="";
@@ -158,6 +165,7 @@ int j =0,k=0;
 	
 		
 		req.setAttribute("nom", nom);
+		req.setAttribute("maill", mail);
 		req.setAttribute("proj", proj);
 		req.setAttribute("block1", b1);
 		req.setAttribute("block2", b2);
