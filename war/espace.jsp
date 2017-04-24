@@ -6,21 +6,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
 <title>Espace</title>
-
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
 </head>
 <body>
 <div class="container">
 <h1 class="text-center">Page Espace</h1>
 <p> Bonjour <%=request.getAttribute("nom")%>: <br/>
 Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</p>
+
 <h2>Mes projets</h2>
 <%=request.getAttribute("proj")%>
 
 <div class="<%=request.getAttribute("block1")%>">
-
 
 <h2>Ajout d' <%=request.getAttribute("text1")%></h2>
 <div class="row"><div class="text-center container">
@@ -35,10 +38,9 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
     <label >Description</label>
     <input type="text" class="form-control" name="description" placeholder="description">
     <label class="<%=request.getAttribute("block3")%>" >Numero de projet</label>
-    <input type="text" class="form-control <%=request.getAttribute("block3")%>" name="history" placeholder="numeroProjet">
+    <input type="text" class="form-control <%=request.getAttribute("block3")%>" name="history" placeholder="description">
   </div>
   
-
   <div class="form-group">
     <label >Delai estimé:</label>
     <select class="form-control" name="delai">
@@ -50,7 +52,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
   </div>
   
   <div class="form-group">
-    <label >Coût</label>
+    <label >Cout</label>
     <select class="form-control" name="cout">
     		
 			<option label="court">Faible</option>
@@ -64,6 +66,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
 </form>
 </div></div></div>
 </div>
+  
 <div class="<%=request.getAttribute("block2")%>">
 
 <h2>Liste des <%=request.getAttribute("text2")%> disponibles</h2>
@@ -99,5 +102,6 @@ function ecoute(){
 			}
 };
 </script>
+</div>
 </body>
 </html>

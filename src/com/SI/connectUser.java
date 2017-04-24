@@ -23,44 +23,45 @@ public class connectUser extends HttpServlet {
 
 		System.out.println("Dans ConnectUserServlet, champs reçus: " + mail + mdp);
 
-		
+		// if(mdp.equals(confmdp)){
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
-		
+		Transaction tx = dataStore.beginTransaction();
+		tx.commit();
 
 		// Queue queue = QueueFactory.getDefaultQueue();
 		// queue.add(TaskOptions.Builder.withUrl("/tacheDeFond").method(Method.POST).param("kind",
 		// "Personne").param("filterProperty", "age").param("filterValue",
 		// "15"));
-		
-		
+
 		//Recuperation compte client
 		
-		Query q = new Query("user");
-		q.addFilter("mail", FilterOperator.EQUAL, mail);
-		q.addFilter("mdp", FilterOperator.EQUAL, mdp);
-		PreparedQuery pq = dataStore.prepare(q);
-		// String tabuser = "<table><thead></thead><tbody>";
-		String link = "/index.html";
+				Query q = new Query("user");
+				q.addFilter("mail", FilterOperator.EQUAL, mail);
+				q.addFilter("mdp", FilterOperator.EQUAL, mdp);
+				PreparedQuery pq = dataStore.prepare(q);
+				// String tabuser = "<table><thead></thead><tbody>";
+				
+				String link = "/index.html";
 
-		String nom="";
-		String type="";
-		String id="";
-		int i =0;
+				String nom="";
+				String type="";
+				String id="";
+				int i =0;
+				
+				for(Entity u:pq.asIterable()){
+					i++;
+					
+					nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +  u.getKey().getId();
+					type=u.getProperty("type").toString();
+					id= ""+u.getKey().getId();
+					//tabuser+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("prenom") +"</td><td>"+u.getProperty("mail") +"</td></tr>";
 		
-		for(Entity u:pq.asIterable()){
-			i++;
-			nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +  u.getKey().getId();
-			type=u.getProperty("type").toString();
-			id= ""+u.getKey().getId();
-			//tabuser+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("prenom") +"</td><td>"+u.getProperty("mail") +"</td></tr>";
-
-		}
+				}
 		if (i == 1) {
+
 			System.out.println("link");
-		//	link = "/affichagerequette.jsp";
 			link ="/espace.jsp";
 		}
-		
 		String b1="";
 		String b2="";
 		String b3="hidden";
@@ -89,7 +90,8 @@ public class connectUser extends HttpServlet {
 			
 		}
 		
-				
+		
+		
 		//Recuperation projets utilisateur
 		Query q2 = new Query("request");
 		q2.addFilter("iduser", FilterOperator.EQUAL, id);
@@ -105,8 +107,7 @@ int j =0,k=0;
 			proj+="<div class='caption'>";
 			proj+=" <h3>"+u.getProperty("nom")+"</h3>";
 			proj+=" <p>"+u.getProperty("description")+"</p>";
-			//proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
-			proj+="<p class='text-center'><a href='/ConsultRequest' class='btn btn-primary' role='button'>Voir</a> <a href='ConsultRequest' class='btn btn-default' role='button'>Terminer</a></p>";	
+			proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
 			proj+="</div> </div> </div> ";
 			if(j==3){
 				j=0;
@@ -151,53 +152,22 @@ int j =0,k=0;
 			
 		}
 		
-
-		// tabuser+="</tbody></table>";
-	
-		/*LIEN LIEN LIEN LIEN LIEN LIEN LIEN LIEN*/
 		
+		
+
+	
+		
+		req.setAttribute("nom", nom);
 		req.setAttribute("proj", proj);
-		// req.setAttribute(" ",tabuser );
-		getServletContext().getRequestDispatcher(link).forward(req, resp);
+		req.setAttribute("block1", b1);
+		req.setAttribute("block2", b2);
+		req.setAttribute("block3", b3);
+		req.setAttribute("text1", text1);
+		req.setAttribute("text2", text2);
+		req.setAttribute("iduser", id);
+		req.setAttribute("tabletache", tablep);
 		
-	
-		//Recuperation informations de la requete 
+		getServletContext().getRequestDispatcher(link).forward(req, resp);
 
-		Query q4 = new Query("request");
-		q4.addFilter("id", FilterOperator.EQUAL, id);
-		PreparedQuery pqq2 = dataStore.prepare(q4);
-	
-		for(Entity u:pqq2.asIterable()){
-			id= ""+u.getKey().getId();
-				
-				int e =0,r=0;
-				String reqt="<div class='row'>";
-				for(Entity requete :pqq.asIterable()){
-					e++;
-					reqt+=" <div class='col-sm-6 col-md-4'><div class='thumbnail'>";
-					reqt+=" <h3>"+u.getProperty("nom")+"</h3>";
-					reqt+=" <p>"+u.getProperty("description")+"</p>";
-				// A completer 
-					reqt+="</div> </div> </div> ";
-					if(e==3){
-						e=0;
-						r++;
-						if(r>2){
-							reqt+="</div><div id='knowmore'class='row knowmore  hidden '>";
-						}else{	
-								reqt+="</div><div class='row'>";						
-						}
-					}
-				}
-				String link2 = "/index.html";
-			
-			/*	req.setAttribute("text1", text1);
-				req.setAttribute("text2", text2);
-				req.setAttribute("iduser", id);
-				req.setAttribute("tabletache", tablep);
-			*/
-				req.setAttribute("requette", reqt);
-				getServletContext().getRequestDispatcher(link2).forward(req, resp);		
-		}
 	}
 }
