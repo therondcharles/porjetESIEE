@@ -95,7 +95,6 @@ public class connectUser extends HttpServlet {
 		//Recuperation projets utilisateur
 		Query q2 = new Query("request");
 		q2.addFilter("iduser", FilterOperator.EQUAL, id);
-		//q.addFilter("idworker", FilterOperator.EQUAL, id);
 		PreparedQuery pqq = dataStore.prepare(q2);
 		
 int j =0,k=0;
@@ -126,10 +125,8 @@ int j =0,k=0;
 		proj+="</div><p class='text-center'><span onclick=\"ecoute()\" class='btn'> en savoir plus</span></p>";
 		proj+="</div>";
 		
-		
-		
-		//recuperation projet disponibles
-		
+	
+		//recuperation projet disponibles	
 		Query q3 = new Query("request");
 		q3.addFilter("etat", FilterOperator.EQUAL, "soumis");
 		q3.addFilter("type", FilterOperator.EQUAL, typeu);
@@ -146,17 +143,14 @@ int j =0,k=0;
 					+ "<td>"+u.getProperty("delai")+"</td>"
 					+ "<td>"+u.getProperty("cout")+"</td>"
 					+ "<td><a href='"+u.getKey().getId()+"' class='btn'>Valider</a></td>"
-					+ "<td><a href='"+u.getKey().getId()+"' class='btn'>Detail</a></td>"
-					+ "</tr>";
-			
-			
+					+ "<td><form method='post' action='GetRequest'></td>" 
+					+ "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"	
+					+ "<td><input type='submit' VALUE='Detail'/><td>"	
+					+ "<td></form></td>"
+					+ "</tr>"; 
+					
 		}
-		
-		
-		
-
-	
-		
+				
 		req.setAttribute("nom", nom);
 		req.setAttribute("proj", proj);
 		req.setAttribute("block1", b1);
