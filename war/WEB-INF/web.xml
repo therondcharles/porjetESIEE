@@ -42,6 +42,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>GetAccountInfo</servlet-name>
+		<servlet-class>com.SI.GetAccountInformation</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetAccountInfo</servlet-name>
+		<url-pattern>/GetAccountInfo</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>ModificationCompte</servlet-name>
+		<servlet-class>com.SI.ModificationCompte</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ModificationCompte</servlet-name>
+		<url-pattern>/ModificationCompte</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>GetRequest</servlet-name>
 		<servlet-class>com.SI.GetRequest</servlet-class>
 	</servlet>

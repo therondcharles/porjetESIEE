@@ -16,9 +16,14 @@
 </head>
 <body>
 <div class="container">
-<h1 class="text-center">Consulation Requete </h1>
+<h1 class="text-center">Consultation Requete </h1>
 
-<%=request.getAttribute("tabletache")%>
+<table border="0" cellspacing="0" cellpadding="0">
+		<tr height="2"><td></td></tr>
+		<tr><td></td></tr>
+</table> 
+									
+<%=request.getAttribute("tableP")%>
 
 </div>
 </body>

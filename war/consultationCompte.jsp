@@ -16,10 +16,11 @@
 </head>
 <body>
 <div class="container">
-<h1 class="text-center">Consulation Compte </h1>
+<h1 class="text-center">Consultation Compte </h1>
 
-<%=request.getAttribute("tableCompte")%>
-
+<%=request.getAttribute("tabM")%>
+<%=request.getAttribute("tableP")%>
+	
 </div>
 </body>
 </html>

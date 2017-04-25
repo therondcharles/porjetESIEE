@@ -19,9 +19,10 @@ public class connectUser extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
 		String mail = req.getParameter("mail");
+		String from = req.getParameter("from");
 		String mdp = req.getParameter("mdp");
 
-		System.out.println("Dans ConnectUserServlet, champs reçus: " + mail + mdp);
+		System.out.println("Dans ConnectUserServlet, champs reçus: " + mail +  mdp +from);
 
 		// if(mdp.equals(confmdp)){
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
@@ -37,13 +38,17 @@ public class connectUser extends HttpServlet {
 		
 				Query q = new Query("user");
 				q.addFilter("mail", FilterOperator.EQUAL, mail);
+				
+				if(from==null){
 				q.addFilter("mdp", FilterOperator.EQUAL, mdp);
+				}
 				PreparedQuery pq = dataStore.prepare(q);
 				// String tabuser = "<table><thead></thead><tbody>";
 				
 				String link = "/index.html";
 
 				String nom="";
+				
 				String type="";
 				String id="";
 				int i =0;
@@ -53,14 +58,16 @@ public class connectUser extends HttpServlet {
 					
 					nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +  u.getKey().getId();
 					type=u.getProperty("type").toString();
+					
 					id= ""+u.getKey().getId();
 					//tabuser+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("prenom") +"</td><td>"+u.getProperty("mail") +"</td></tr>";
 		
 				}
 		if (i == 1) {
 
-			System.out.println("link");
+			
 			link ="/espace.jsp";
+			System.out.println("link");
 		}
 		String b1="";
 		String b2="";
@@ -105,8 +112,12 @@ int j =0,k=0;
 			proj+="<img src='...' alt='...'>";
 			proj+="<div class='caption'>";
 			proj+=" <h3>"+u.getProperty("nom")+"</h3>";
-			proj+=" <p>"+u.getProperty("description")+"</p>";
-			proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
+			proj+=" <p>"+u.getProperty("description")+"</p>"; 
+			//proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
+			proj+="<td><form method='post' action='GetRequest'></td>"; 
+			proj+= "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"; 
+			proj+= "<td><input type='submit' class='btn btn-primary' VALUE='Voir'/><td>"; 
+
 			proj+="</div> </div> </div> ";
 			if(j==3){
 				j=0;
@@ -150,8 +161,20 @@ int j =0,k=0;
 					+ "</tr>"; 
 					
 		}
+		
+		
+		
+		//Accès infos compte 
+		String tabC=""; 	 
+		tabC+="<tr>"		
+		+ "<td><form method='post' action='GetAccountInfo'></td>" 
+		+ "<td><input type='text' class='hidden' name='idUser' value="+id+"></td>"	
+		+ "<td><input type='submit' VALUE='DetailCompte'/><td>"	
+		+ "<td></form></td>"; 		
+		
 				
 		req.setAttribute("nom", nom);
+		req.setAttribute("maill", mail);
 		req.setAttribute("proj", proj);
 		req.setAttribute("block1", b1);
 		req.setAttribute("block2", b2);
@@ -160,6 +183,7 @@ int j =0,k=0;
 		req.setAttribute("text2", text2);
 		req.setAttribute("iduser", id);
 		req.setAttribute("tabletache", tablep);
+		req.setAttribute("accesC", tabC);
 		
 		getServletContext().getRequestDispatcher(link).forward(req, resp);
 

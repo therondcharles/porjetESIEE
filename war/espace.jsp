@@ -20,6 +20,8 @@
 <p> Bonjour <%=request.getAttribute("nom")%>: <br/>
 Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</p>
 
+<%=request.getAttribute("accesC")%>
+
 <h2>Mes projets</h2>
 <%=request.getAttribute("proj")%>
 
@@ -32,6 +34,9 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
    <div class="form-group">
     <label >Nom</label>
     <input type="text" class="hidden" name="iduser" value="<%=request.getAttribute("iduser")%>">
+    <input type="text" class="hidden" name="mail" value="<%=request.getAttribute("maill")%>">
+    <input type="text" class="hidden" name=from value="addrequest">
+    
     <input type="text" class="hidden" name="type" value="<%=request.getAttribute("typep")%>">
     <input type="text" class="hidden" name="etat" value="soumis">
     <input type="text" class="form-control" name="nom" placeholder="nom">
