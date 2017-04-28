@@ -75,9 +75,12 @@ public class connectUser extends HttpServlet {
 		String text1="";
 		String text2="";
 		String typeu="";
+		
+		Query q2 = new Query("request");
 		if(type.equals("Client")){
 			text1="un projet";
 			req.setAttribute("typep", "projet");
+			q2.addFilter("iduser", FilterOperator.EQUAL, id);
 			
 			b2="hidden";
 		}
@@ -86,6 +89,8 @@ public class connectUser extends HttpServlet {
 			b1="hidden ";
 			text2="Taches";
 			typeu="tache";
+
+			q2.addFilter("history", FilterOperator.EQUAL, id);
 			
 		}
 		if(type.equals("MOA")){
@@ -94,16 +99,16 @@ public class connectUser extends HttpServlet {
 			text2=" Projets";
 			b3="";
 			typeu="projet";
+			q2.addFilter("history", FilterOperator.EQUAL, id);
 			
 		}
 		
 		
 		
 		//Recuperation projets utilisateur
-		Query q2 = new Query("request");
-		q2.addFilter("iduser", FilterOperator.EQUAL, id);
-		PreparedQuery pqq = dataStore.prepare(q2);
 		
+
+		PreparedQuery pqq = dataStore.prepare(q2);
 int j =0,k=0;
 		String proj="<div class='row'>";
 		for(Entity u:pqq.asIterable()){
@@ -116,7 +121,7 @@ int j =0,k=0;
 			//proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
 			proj+="<td><form method='post' action='GetRequest'></td>"; 
 			proj+= "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"; 
-			proj+= "<td><input type='submit' class='btn btn-primary' VALUE='Voir'/><td>"; 
+			proj+= "<td><input type='submit' class='btn btn-primary' VALUE='Voir'/></form><td>"; 
 
 			proj+="</div> </div> </div> ";
 			if(j==3){
@@ -133,6 +138,8 @@ int j =0,k=0;
 				
 			}
 		}
+		
+		
 		proj+="</div><p class='text-center'><span onclick=\"ecoute()\" class='btn'> en savoir plus</span></p>";
 		proj+="</div>";
 		
@@ -153,10 +160,14 @@ int j =0,k=0;
 					+ "<td>"+u.getProperty("description")+"</td>"
 					+ "<td>"+u.getProperty("delai")+"</td>"
 					+ "<td>"+u.getProperty("cout")+"</td>"
-					+ "<td><a href='"+u.getKey().getId()+"' class='btn'>Valider</a></td>"
+					+ "<td><form method='post' action='AcceptRequest'></td>" 
+					+ "<td><input type='text' class='hidden' name='idhistory' value="+id+"></td>"
+					+ "<td><input type='text' class='hidden' name='mail' value="+mail+"></td>"
+					+ "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"	
+					+ "<td><input type='submit' VALUE='Valider'/><input type='text' class='hidden' name='from' value='accept'></form><td>"
 					+ "<td><form method='post' action='GetRequest'></td>" 
 					+ "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"	
-					+ "<td><input type='submit' VALUE='Detail'/><td>"	
+					+ "<td><input type='submit' VALUE='Detail'/><input type='text' class='hidden' name='from' value='get'><td>"	
 					+ "<td></form></td>"
 					+ "</tr>"; 
 					

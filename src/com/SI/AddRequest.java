@@ -35,10 +35,10 @@ public class AddRequest extends HttpServlet{
 		String cout = req.getParameter("cout");
 		String etat = req.getParameter("etat");
 		String typep = req.getParameter("type");
-		String history =req.getParameter("history");
+		String ref =req.getParameter("ref");
 		
 	
-		
+		if(typep.equals("projet") || (typep.equals("tache")&&!ref.equals("")) ){
 		//if(mdp.equals(confmdp)){
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 		Transaction  tx = dataStore.beginTransaction();
@@ -50,9 +50,11 @@ public class AddRequest extends HttpServlet{
 		request.setProperty("delai", delai);
 		request.setProperty("cout", cout);
 		request.setProperty("etat", etat);
-		request.setProperty("history", history);
+		request.setProperty("history", null);		
+		request.setProperty("ref", ref);
 		dataStore.put(request);
 		tx.commit();
+		}
 		
 		//Queue queue = QueueFactory.getDefaultQueue();
 		//queue.add(TaskOptions.Builder.withUrl("/tacheDeFond").method(Method.POST).param("kind", "Personne").param("filterProperty", "age").param("filterValue", "15"));

@@ -50,7 +50,7 @@ public class ModificationCompte extends HttpServlet {
 			}
 		}
 	//Redirection vers connectUser avec propriétés mail et mdp
-		//getServletContext().getRequestDispatcher("/espace.jsp").forward(req, resp);
+		getServletContext().getRequestDispatcher("/espace.jsp").forward(req, resp);
 
 	}
 }

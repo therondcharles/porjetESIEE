@@ -35,7 +35,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
     <label >Nom</label>
     <input type="text" class="hidden" name="iduser" value="<%=request.getAttribute("iduser")%>">
     <input type="text" class="hidden" name="mail" value="<%=request.getAttribute("maill")%>">
-    <input type="text" class="hidden" name=from value="addrequest">
+    <input type="text" class="hidden" name="from" value="add">
     
     <input type="text" class="hidden" name="type" value="<%=request.getAttribute("typep")%>">
     <input type="text" class="hidden" name="etat" value="soumis">
@@ -43,7 +43,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
     <label >Description</label>
     <input type="text" class="form-control" name="description" placeholder="description">
     <label class="<%=request.getAttribute("block3")%>" >Numero de projet</label>
-    <input type="text" class="form-control <%=request.getAttribute("block3")%>" name="history" placeholder="description">
+    <input type="text" class="form-control <%=request.getAttribute("block3")%>" name="ref" placeholder="IDprojet">
   </div>
   
   <div class="form-group">
@@ -61,7 +61,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
     <select class="form-control" name="cout">
     		
 			<option label="court">Faible</option>
-			<option label="moyen">Moyen</option> 
+			<option label="moyen">Moyenne</option> 
 			<option label="long">Elevée</option> 
 		</select>
   </div>

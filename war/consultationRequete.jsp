@@ -12,18 +12,26 @@
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
-<title>Espace</title>
+<title>Detail</title>
 </head>
 <body>
 <div class="container">
-<h1 class="text-center">Consultation Requete </h1>
 
-<table border="0" cellspacing="0" cellpadding="0">
-		<tr height="2"><td></td></tr>
-		<tr><td></td></tr>
-</table> 
-									
-<%=request.getAttribute("tableP")%>
+<h1 class="text-center"><%=request.getAttribute("titreprojet")%></h1>
+<div class="row">
+<div class="col-md-3 col-md-offset-3" >
+<p>Le projet s'effectura sur un delai <%=request.getAttribute("delaiprojet")%></p>
+</div>
+<div class="col-md-3" >
+<p>Le client dispose de <%=request.getAttribute("coutprojet")%> ressources </p> 
+</div>
+</div>
+<div class="row">
+<p></p><%=request.getAttribute("descriptionprojet")%>
+</div>
+
+
+<div class="<%=request.getAttribute("testetatp")%>" > le projet est actuellement soumis mais pas pris en charge</div>
 
 </div>
 </body>

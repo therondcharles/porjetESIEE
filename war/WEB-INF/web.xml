@@ -22,6 +22,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>createUser</servlet-name>
 		<url-pattern>/createUser</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AcceptRequest</servlet-name>
+		<servlet-class>com.SI.AcceptRequest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AcceptRequest</servlet-name>
+		<url-pattern>/AcceptRequest</url-pattern>
+	</servlet-mapping>
 		
 	<servlet>
 		<servlet-name>connectUser</servlet-name>

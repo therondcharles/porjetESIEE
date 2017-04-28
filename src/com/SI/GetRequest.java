@@ -40,33 +40,41 @@ public class GetRequest extends HttpServlet {
 				String cout=""; 
 				String tablep="";
 				String tabM=""; 
+				String titreprojet="";
+				String descriptionprojet="";
+				String delaiprojet="";
+				String coutprojet="";
+				String etatprojet="";
+				
 				long identifiant= 0; 	 				
 				for(Entity u:pq3.asIterable()){
 					identifiant =u.getKey().getId();  
 					if(identifiant==idR){
 									
-						tablep+="<tr>"							
-							+ "<td> <label> Identifiant </label> <&nbsp;</td>"
-							+"<td>"+identifiant+" </br> </td>"	
-							+ "<td> <label> Nom </label> &nbsp; </td>"
-							+ "<td>"+u.getProperty("nom")+"</br></td>"
-							+ "<td> <label> Type </label> <&nbsp;</td>"
-							+"<td>"+u.getProperty("type")+" </br> </td>"
-							+ "<td> <label> Description </label> &nbsp; </td>"
-							+ "<td>"+u.getProperty("description")+"</br></td>"
-							+ "<td> <label> Etat </label> &nbsp;</td>"
-							+ "<td>"+u.getProperty("etat")+"</br></td>"
-							+ "<td> <label> Delai </label> &nbsp;</td>"
-							+ "<td>"+u.getProperty("delai")+"</br></td>"
-							+ "<td> <label> Cout </label> &nbsp;</td>"
-							+ "<td>"+u.getProperty("cout")+"</td>"
-							+ "</tr>";  
+						
+						titreprojet=u.getProperty("nom").toString();
+						descriptionprojet=u.getProperty("description").toString();
+						delaiprojet=u.getProperty("delai").toString();
+						coutprojet=u.getProperty("cout").toString();
+						etatprojet=u.getProperty("etat").toString();
+						 
 		
 					}
 				}
-							
+				String testetatp="";
+				String testetatn="";
+				if(etatprojet.equals("soumis")){
+					testetatn="hidden";
+				}else{
+					testetatp="hidden";
+				}
 					
-				req.setAttribute("tableP", tablep);
+				req.setAttribute("titreprojet", titreprojet);
+				req.setAttribute("descriptionprojet", descriptionprojet);
+				req.setAttribute("delaiprojet", delaiprojet);
+				req.setAttribute("coutprojet", coutprojet);
+				req.setAttribute("testetatp", testetatp);
+				req.setAttribute("testetatn", testetatn);
 	 
 				getServletContext().getRequestDispatcher("/consultationRequete.jsp").forward(req, resp);
 
