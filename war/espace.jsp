@@ -87,6 +87,7 @@ Bienvenu sur votre dashboard vous pourrez ici consulter vos projets les gerer.</
     <tbody>
 <%=request.getAttribute("tabletache")%>
 	</tbody>
+	</table>
 </div>
 
 </div>

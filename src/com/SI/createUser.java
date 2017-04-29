@@ -65,7 +65,7 @@ public class createUser extends HttpServlet {
 
 		tabuser += "</tbody></table>";
 		req.setAttribute("tabuser", tabuser);
-		getServletContext().getRequestDispatcher("/coucouc.jsp").forward(req, resp);
+		getServletContext().getRequestDispatcher("/").forward(req, resp);
 
 	}
 

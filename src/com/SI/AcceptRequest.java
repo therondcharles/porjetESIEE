@@ -35,7 +35,7 @@ public class AcceptRequest extends HttpServlet {
 					if(identifiant==idR){
 						Transaction txn = dataStore.beginTransaction(); 
 						try{
-						u.setProperty("history",req.getParameter("idhistory") );
+						u.setProperty("history",req.getParameter("idhistory").toString() );
 						u.setProperty("etat","en charge");
 						dataStore.put(u);
 						txn.commit(); 

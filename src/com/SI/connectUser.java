@@ -98,6 +98,7 @@ public class connectUser extends HttpServlet {
 			text1="une tache";
 			text2=" Projets";
 			b3="";
+			b1="hidden ";
 			typeu="projet";
 			q2.addFilter("history", FilterOperator.EQUAL, id);
 			
@@ -120,7 +121,11 @@ int j =0,k=0;
 			proj+=" <p>"+u.getProperty("description")+"</p>"; 
 			//proj+="<p class='text-center'><a href="+ u.getKey().getId()+" class='btn btn-primary' role='button'>Voir</a> <a href="+ u.getKey().getId()+" class='btn btn-default' role='button'>Terminer</a></p>";
 			proj+="<td><form method='post' action='GetRequest'></td>"; 
+			if(type.equals("Developpeur")){
+				proj+= "<td><input type='text' class='hidden' name='idRequete' value="+u.getProperty("ref")+"></td>"; 
+			}else{
 			proj+= "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"; 
+			}proj+= "<td><input type='text' class='hidden' name='mail' value="+mail+"></td>"; 
 			proj+= "<td><input type='submit' class='btn btn-primary' VALUE='Voir'/></form><td>"; 
 
 			proj+="</div> </div> </div> ";
@@ -155,6 +160,14 @@ int j =0,k=0;
 		
 		for(Entity u:pq3.asIterable()){
 			
+			
+			String idrr="";
+			if(type.equals("Developpeur")){
+				 idrr=u.getProperty("ref").toString(); 
+			}else{
+				 idrr=u.getKey().getId()+""; 
+			}
+			
 			tablep+="<tr>"
 					+ "<td>"+u.getProperty("nom")+"</td>"
 					+ "<td>"+u.getProperty("description")+"</td>"
@@ -166,7 +179,8 @@ int j =0,k=0;
 					+ "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"	
 					+ "<td><input type='submit' VALUE='Valider'/><input type='text' class='hidden' name='from' value='accept'></form><td>"
 					+ "<td><form method='post' action='GetRequest'></td>" 
-					+ "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"	
+					+ "<td><input type='text' class='hidden' name='mail' value="+mail+"></td>"
+					+ "<td><input type='text' class='hidden' name='idRequete' value="+idrr+"></td>"	
 					+ "<td><input type='submit' VALUE='Detail'/><input type='text' class='hidden' name='from' value='get'><td>"	
 					+ "<td></form></td>"
 					+ "</tr>"; 

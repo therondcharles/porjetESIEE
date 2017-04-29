@@ -31,8 +31,93 @@
 </div>
 
 
-<div class="<%=request.getAttribute("testetatp")%>" > le projet est actuellement soumis mais pas pris en charge</div>
+<div class="<%=request.getAttribute("testetatp")%>" > <p>le projet est actuellement soumis mais pas pris en charge</p></div>
+
+<div class="row <%=request.getAttribute("testetatn")%>">
+<p>le projet est actuellement pris en charge par <%=request.getAttribute("moalead")%> </p>
+
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Delai</th>
+        <th>Cout</th>
+        <th>Etat</th>
+      </tr>
+    </thead>
+    <tbody>
+<%=request.getAttribute("tabletache")%>
+	</tbody>
+	</table>
+	
+<p class="text-center <%=request.getAttribute("moaajout")%>"><span onclick="ajout()" class='btn'> Ajout d'une tache</span></p>
+	
+<div class="ajouttache hidden">
+	<form method="post" action="AddRequest">
+   <div class="form-group">
+    <label >Nom</label>
+    <input type="text" class="hidden" name="iduser" value="<%=request.getAttribute("iduser")%>">
+    <input type="text" class="hidden" name="mail" value="<%=request.getAttribute("maill")%>">
+    <input type="text" class="hidden" name="from" value="add">
+    
+    <input type="text" class="hidden" name="type" value="tache">
+    <input type="text" class="hidden" name="etat" value="soumis">
+    <input type="text" class="form-control" name="nom" placeholder="nom">
+    <label >Description</label>
+    <input type="text" class="form-control" name="description" placeholder="description">
+    
+    <input type="text" class="form-control hidden" name="ref" placeholder="IDprojet" value="<%=request.getAttribute("IDprojet")%>">
+  </div>
+  
+  <div class="form-group">
+    <label >Delai estimé:</label>
+    <select class="form-control" name="delai">
+    		
+			<option label="court">Court</option>
+			<option label="moyen">Moyen</option> 
+			<option label="long">Long</option> 
+		</select>
+  </div>
+  
+  <div class="form-group">
+    <label >Cout</label>
+    <select class="form-control" name="cout">
+    		
+			<option label="court">Faible</option>
+			<option label="moyen">Moyenne</option> 
+			<option label="long">Elevée</option> 
+		</select>
+  </div>
+   
+  <button type="submit" class="btn btn-default btn-primary">Ajout</button>
+  
+</form>
+</div>
+</div>
+
+
+
 
 </div>
+<script>
+		
+		var checkajout=0;
+		
+function ajout(){
+			if (checkajout==0){
+			$('.ajouttache').removeClass("hidden ");
+			
+			checkajout=1;
+			}
+			else{
+			$('.ajouttache').addClass("hidden ");
+			
+			checkajout=0;
+			}
+};
+</script>
 </body>
 </html>
