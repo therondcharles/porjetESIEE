@@ -18,6 +18,7 @@
 <div class="container">
 
 <h1 class="text-center"><%=request.getAttribute("titreprojet")%></h1>
+<div id="visuProj">
 <div class="row">
 <div class="col-md-3 col-md-offset-3" >
 <p>Le projet s'effectura sur un delai <%=request.getAttribute("delaiprojet")%></p>
@@ -29,6 +30,9 @@
 <div class="row">
 <p></p><%=request.getAttribute("descriptionprojet")%>
 </div>
+</div>
+<%=request.getAttribute("editproj")%>
+
 
 
 <div class="<%=request.getAttribute("testetatp")%>" > <p>le projet est actuellement soumis mais pas pris en charge</p></div>
@@ -116,6 +120,23 @@ function ajout(){
 			$('.ajouttache').addClass("hidden ");
 			
 			checkajout=0;
+			}
+};
+</script>
+<script>
+		
+		var checkedit=1;
+		
+function edit(){
+			if (checkedit==0){
+			$('#visuProj').removeClass("hidden ");
+			$('#editProj').addClass("hidden ");
+			checkedit=1;
+			}
+			else{
+			$('#visuProj').addClass("hidden ");
+			$('#editProj').removeClass("hidden ");			
+			checkedit=0;
 			}
 };
 </script>

@@ -51,6 +51,39 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>editProj</servlet-name>
+		<servlet-class>com.SI.editProj</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>editProj</servlet-name>
+		<url-pattern>/editProj</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>editreq</servlet-name>
+		<servlet-class>com.SI.editreq</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>editreq</servlet-name>
+		<url-pattern>/editreq</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>suppProj</servlet-name>
+		<servlet-class>com.SI.suppProj</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>suppProj</servlet-name>
+		<url-pattern>/suppProj</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>suppreq</servlet-name>
+		<servlet-class>com.SI.suppreq</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>suppreq</servlet-name>
+		<url-pattern>/suppreq</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>GetAccountInfo</servlet-name>
 		<servlet-class>com.SI.GetAccountInformation</servlet-class>
 	</servlet>
