@@ -25,17 +25,29 @@ import com.google.appengine.api.taskqueue.TaskOptions.Method;
 public class createUser extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
+		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 		String nom = req.getParameter("nom");
 		String prenom = req.getParameter("prenom");
 		String mail = req.getParameter("mail");
 		String mdp = req.getParameter("mdp");
 		String confmdp = req.getParameter("confmdp");
 		String type = req.getParameter("type");
+		String mailcheck = "";
+		
+		
+		Query q = new Query("user");
+		q.addFilter("mail", FilterOperator.EQUAL, mail);
+		PreparedQuery pq = dataStore.prepare(q);	
+
+		for (Entity u : pq.asIterable()) {
+			mailcheck =u.getProperty("mail").toString();
+		}
+		
 
 		System.out.println("Dans GoogleEsieeServlet, champs reçus: " + nom);
 
-		// if(mdp.equals(confmdp)){
-		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+		 if(mdp.equals(confmdp)&&mailcheck.equals("")){
+		
 		Transaction tx = dataStore.beginTransaction();
 		Entity user = new Entity("user");
 		user.setProperty("nom", nom);
@@ -53,18 +65,9 @@ public class createUser extends HttpServlet {
 		// "Personne").param("filterProperty", "age").param("filterValue",
 		// "15"));
 
-		Query q = new Query("user");
-		q.addFilter("type", FilterOperator.EQUAL, type);
-		PreparedQuery pq = dataStore.prepare(q);
-		String tabuser = "<table><thead></thead><tbody>";
+		
 
-		for (Entity u : pq.asIterable()) {
-			tabuser += "<tr><td>" + u.getProperty("nom") + "</td><td>" + u.getProperty("prenom") + "</td><td>"
-					+ u.getProperty("mail") + "</td></tr>";
-		}
-
-		tabuser += "</tbody></table>";
-		req.setAttribute("tabuser", tabuser);
+		 }
 		getServletContext().getRequestDispatcher("/").forward(req, resp);
 
 	}

@@ -219,31 +219,75 @@ public class GetRequest extends HttpServlet {
 								
 								
 						if(idM.equals(idU)){
+							String coutE= tacheE.getProperty("cout").toString();
+							String coutRR="			<option label='Faible'>Faible</option>"
+									+ "			<option label='Moyenne'>Moyenne</option>"
+									+ "			<option label='Elevée'>Elevee</option>";
+
+							String delaiE= tacheE.getProperty("delai").toString();
+							String delaiRR="			<option label='Court'>Court</option>"
+									+ "			<option label='Moyenne'>Moyenne</option>"
+									+ "			<option label='Long'>Long</option>";
+
+							if(coutE.equals("faible")){
+								coutRR="			<option selected='selected' label='Faible'>Faible</option>"
+										+ "			<option label='Moyenne'>Moyenne</option>"
+										+ "			<option label='Elevée'>Elevee</option>";
+							}
+							if(coutE.equals("Moyenne")){
+								coutRR="			<option  label='Faible'>Faible</option>"
+										+ "			<option selected='selected' label='Moyenne'>Moyenne</option>"
+										+ "			<option label='Elevée'>Elevee</option>";
+							}
+							if(coutE.equals("Elevee")){
+								coutRR="			<option label='Faible'>Faible</option>"
+										+ "			<option label='Moyenne'>Moyenne</option>"
+										+ "			<option selected='selected' label='Elevee'>Elevée</option>";
+							}
+							
+							if(delaiE.equals("Court")){
+								delaiRR="			<option selected='selected' label='Court'>Court</option>"
+										+ "			<option label='Moyen'>Moyen</option>"
+										+ "			<option label='Long'>Long</option>";
+							}
+							if(delaiE.equals("Moyen")){
+								delaiRR="			<option  label='Court'>Court</option>"
+										+ "			<option selected='selected' label='Moyen'>Moyen</option>"
+										+ "			<option label='Long'>Long</option>";
+							}
+							if(delaiE.equals("Long")){
+								delaiRR="			<option label='Court'>Court</option>"
+										+ "			<option label='Moyen'>Moyen</option>"
+										+ "			<option selected='selected' label='Long'>Long</option>";
+							}
+								
+								
+							
+							
+							
+							
+							
 							tablep+="<td><form method='post' action='editreq'>"
 									+"<input type='text' class='form-control' name='nom' value='"+tacheE.getProperty("nom")+"'></td>"
 									+ "<td><input type='text' class='form-control' name='description' value=\""+tacheE.getProperty("description")+"\"></td>"
 									+ "<td><select class='form-control' name='delai' selected='"+tacheE.getProperty("delai")+"'>"
-									+ "			<option label='court'>Court</option>"
-									+ "			<option label='moyen'>Moyen</option>"
-									+ "			<option label='long'>Elevé</option>"
+									+delaiRR
 									+ "		</select></td>"
 									+ "<td>"
 									+ "<select class='form-control' name='cout' value='"+tacheE.getProperty("cout")+"'>"
-									+ "			<option label='court'>Faible</option>"
-									+ "			<option label='moyen'>Moyenne</option>"
-									+ "			<option label='long'>Elevée</option>"
+									+ coutRR
 									+ "		</select></td>"
 									+ "<td>"+nomdev+"</td>"
 									+"<input type='text' class='hidden' name='idproj' value="+ tacheE.getKey().getId()+">"
 									+ "<input type='text' class='hidden' name='mail' value="+mailU+">"
 									+ "<input type='text' class='hidden' name='idRequete' value="+idR+">"
-									+ "<td><button type='submit' class='btn btn-default btn-primary'>Edit</button>"
+									+ "<td><button type='submit' class='btn btn-default btn-primary glyphicon glyphicon-pencil'></button>"
 									+"</form></td><td>"
 									+ "<form method='post' action='suppreq'>"
 									+"<input type='text' class='hidden' name='idproj' value="+ tacheE.getKey().getId()+">"
 									+ "<input type='text' class='hidden' name='mail' value="+mailU+">"
 									+ "<input type='text' class='hidden' name='idRequete' value="+idR+">"
-									+ "<button type='submit' class='btn btn-default btn-primary'>Supprimer</button>"
+									+ "<button type='submit' class='btn  btn-danger glyphicon glyphicon-trash'></button>"
 									+"</form></td>";
 									
 							req.setAttribute("moaajout", "");

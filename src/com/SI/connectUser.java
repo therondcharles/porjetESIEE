@@ -48,17 +48,18 @@ public class connectUser extends HttpServlet {
 				String link = "/index.html";
 
 				String nom="";
-				
+				String prenom="";
 				String type="";
+				String typeR="";
 				String id="";
 				int i =0;
 				
 				for(Entity u:pq.asIterable()){
 					i++;
 					
-					nom=u.getProperty("nom") +" " +  u.getProperty("prenom") +" " +  u.getKey().getId();
+					nom=u.getProperty("nom") +" " ;
 					type=u.getProperty("type").toString();
-					
+					prenom=u.getProperty("prenom") +" " ;
 					id= ""+u.getKey().getId();
 					//tabuser+="<tr><td>"+u.getProperty("nom")+"</td><td>"+u.getProperty("prenom") +"</td><td>"+u.getProperty("mail") +"</td></tr>";
 		
@@ -80,18 +81,21 @@ public class connectUser extends HttpServlet {
 		if(type.equals("Client")){
 			text1="un projet";
 			req.setAttribute("typep", "projet");
-			q2.addFilter("iduser", FilterOperator.EQUAL, id);
-			
+			q2.addFilter("iduser", FilterOperator.EQUAL, id);			
 			b2="hidden";
+			typeR="			<option selected='selected'label='Client'>Client</option>"
+			+ "			<option label='MOA'>MOA</option>"
+			+ "			<option label='Developpeur'>Developpeur</option>";
 		}
 		
 		if(type.equals("Developpeur")){
 			b1="hidden ";
 			text2="Taches";
 			typeu="tache";
-
 			q2.addFilter("history", FilterOperator.EQUAL, id);
-			
+			typeR="			<option label='Client'>Client</option>"
+					+ "			<option label='MOA'>MOA</option>"
+					+ "			<option selected='selected' label='Developpeur'>Developpeur</option>";
 		}
 		if(type.equals("MOA")){
 			req.setAttribute("typep", "tache");
@@ -101,7 +105,9 @@ public class connectUser extends HttpServlet {
 			b1="hidden ";
 			typeu="projet";
 			q2.addFilter("history", FilterOperator.EQUAL, id);
-			
+			typeR="			<option label='Client'>Client</option>"
+					+ "			<option selected='selected' label='MOA'>MOA</option>"
+					+ "			<option  label='Developpeur'>Developpeur</option>";
 		}
 		
 		
@@ -173,16 +179,18 @@ int j =0,k=0;
 					+ "<td>"+u.getProperty("description")+"</td>"
 					+ "<td>"+u.getProperty("delai")+"</td>"
 					+ "<td>"+u.getProperty("cout")+"</td>"
-					+ "<td><form method='post' action='AcceptRequest'></td>" 
-					+ "<td><input type='text' class='hidden' name='idhistory' value="+id+"></td>"
-					+ "<td><input type='text' class='hidden' name='mail' value="+mail+"></td>"
-					+ "<td><input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+"></td>"	
-					+ "<td><input type='submit' VALUE='Valider'/><input type='text' class='hidden' name='from' value='accept'></form><td>"
-					+ "<td><form method='post' action='GetRequest'></td>" 
-					+ "<td><input type='text' class='hidden' name='mail' value="+mail+"></td>"
-					+ "<td><input type='text' class='hidden' name='idRequete' value="+idrr+"></td>"	
-					+ "<td><input type='submit' VALUE='Detail'/><input type='text' class='hidden' name='from' value='get'><td>"	
-					+ "<td></form></td>"
+					+ "<form method='post' action='AcceptRequest'>" 
+					+ "<input type='text' class='hidden' name='idhistory' value="+id+">"
+					+ "<input type='text' class='hidden' name='mail' value="+mail+">"
+					+ "<input type='text' class='hidden' name='idRequete' value="+u.getKey().getId()+">"	
+					+ "<td><button type='submit' class='btn btn-success glyphicon glyphicon-ok'></button></td>"
+					+ "<input type='text' class='hidden' name='from' value='accept'></form>"
+					+ "<form method='post' action='GetRequest'>" 
+					+ "<input type='text' class='hidden' name='mail' value="+mail+">"
+					+ "<input type='text' class='hidden' name='idRequete' value="+idrr+">"	
+					+ "<td><button type='submit' class='btn btn-info glyphicon glyphicon-list-alt'></button></td>"
+					+ "<input type='text' class='hidden' name='from' value='get'>"	
+					+ "</form>"
 					+ "</tr>"; 
 					
 		}
@@ -197,8 +205,13 @@ int j =0,k=0;
 		+ "<td><input type='submit' VALUE='DetailCompte'/><td>"	
 		+ "<td></form></td>"; 		
 		
+		
+		
+		
 				
 		req.setAttribute("nom", nom);
+		req.setAttribute("prenom", prenom);
+		req.setAttribute("typeR", typeR);
 		req.setAttribute("maill", mail);
 		req.setAttribute("proj", proj);
 		req.setAttribute("block1", b1);
@@ -208,7 +221,6 @@ int j =0,k=0;
 		req.setAttribute("text2", text2);
 		req.setAttribute("iduser", id);
 		req.setAttribute("tabletache", tablep);
-		req.setAttribute("accesC", tabC);
 		
 		getServletContext().getRequestDispatcher(link).forward(req, resp);
 

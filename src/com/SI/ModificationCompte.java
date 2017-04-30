@@ -20,37 +20,71 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 public class ModificationCompte extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		String idUser = req.getParameter("idUser");
-		String mail = req.getParameter("mail"); 
-		String mdp = req.getParameter("mdp"); 
-		String nom = req.getParameter("nom"); 
-		String prenom = req.getParameter("prenom"); 
-		String role = req.getParameter("role"); 
-		
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
-		Query q3 = new Query("user");
-		q3.addFilter("mail", FilterOperator.EQUAL, mail);
-		q3.addFilter("mdp", FilterOperator.EQUAL, mdp);
-		PreparedQuery pq3 = dataStore.prepare(q3);	
+		String iduser = req.getParameter("iduser");
+		String nom = req.getParameter("nom");
+		String prenom = req.getParameter("prenom");
+		String mail = req.getParameter("mail");
+		String mdp = req.getParameter("mdp");
+		String confmdp = req.getParameter("confmdp");
 		
-		for(Entity u:pq3.asIterable()){
-			Transaction txn = dataStore.beginTransaction(); 
-			try{
-			u.setProperty("mail", mail);
-			u.setProperty("mdp", mdp);
-			u.setProperty("nom", nom);
-			u.setProperty("prenom", prenom);
-			u.setProperty("role", role);
-			dataStore.put(u);
-			txn.commit(); 
-			}finally{
-				if(txn.isActive()){
-					txn.rollback(); 
-				}
-			}
+		String mailcheck = "";
+		
+		
+		Query q2= new Query("user");
+		q2.addFilter("mail", FilterOperator.EQUAL, mail);
+		PreparedQuery pq2 = dataStore.prepare(q2);	
+
+		for (Entity u2 : pq2.asIterable()) {
+			mailcheck =u2.getKey().getId()+"";
 		}
+		
+		if(mailcheck.equals(iduser)||mailcheck.equals("")){
+		Query q = new Query("user");
+		q.addFilter("mdp", FilterOperator.EQUAL, confmdp);
+		PreparedQuery pq = dataStore.prepare(q);	
+
+		for (Entity u : pq.asIterable()) {
+			String idE=u.getKey().getId()+"";
+			if(idE.equals(iduser)){
+				Transaction tx = dataStore.beginTransaction();
+				Entity user = new Entity("user");
+				u.setProperty("nom", nom);
+				u.setProperty("prenom", prenom);
+				u.setProperty("mail", mail);
+				u.setProperty("mdp", mdp);
+
+				dataStore.put(u);
+
+				tx.commit();
+				
+			}
+		
+		
+		
+		}
+
+		getServletContext().getRequestDispatcher("/connectUser").forward(req, resp);
+		}
+		else{
+
+			getServletContext().getRequestDispatcher("/").forward(req, resp);
+		}
+		
+
+		System.out.println("Dans GoogleEsieeServlet, champs reçus: " + nom);
+
+		
+
+		// Queue queue = QueueFactory.getDefaultQueue();
+		// queue.add(TaskOptions.Builder.withUrl("/tacheDeFond").method(Method.POST).param("kind",
+		// "Personne").param("filterProperty", "age").param("filterValue",
+		// "15"));
+
+		
+
+		 
 	//Redirection vers connectUser avec propriétés mail et mdp
-		getServletContext().getRequestDispatcher("/espace.jsp").forward(req, resp);
 
 	}
 }

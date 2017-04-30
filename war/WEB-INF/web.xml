@@ -67,12 +67,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/editreq</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>suppProj</servlet-name>
-		<servlet-class>com.SI.suppProj</servlet-class>
+	
+	<servlet-name>suppuser</servlet-name>
+		<servlet-class>com.SI.suppuser</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>suppProj</servlet-name>
-		<url-pattern>/suppProj</url-pattern>
+		<servlet-name>suppuser</servlet-name>
+		<url-pattern>/suppuser</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>suppreq</servlet-name>
@@ -81,6 +82,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>suppreq</servlet-name>
 		<url-pattern>/suppreq</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>suppProj</servlet-name>
+		<servlet-class>com.SI.suppProj</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>suppProj</servlet-name>
+		<url-pattern>/suppProj</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
